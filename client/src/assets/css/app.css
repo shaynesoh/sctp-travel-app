@@ -37,6 +37,10 @@ ul ul a {
   background: #6d7fcc;
 }
 
+.text-right{
+  text-align: right
+}
+
 /* The sidebar menu */
 .sidenav {
   height: 100%; /* Full-height: remove this if you want "auto" height */
@@ -85,7 +89,7 @@ ul ul a {
 
 @media screen and (max-width: 770px) {
   .main {
-    margin-left: 0px; /* Same as the width of the sidebar */
+    margin-left: 0px;
   }
 
   .fixed-top {
@@ -97,13 +101,10 @@ ul ul a {
   }
 }
 
-/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 0px;}
   .sidenav a {font-size: 15px;}
 }
-
-
 
 .content-container {
   margin-top: 60px;
@@ -112,22 +113,18 @@ ul ul a {
 
 /* scrollbar */
 
-/* width */
 ::-webkit-scrollbar {
   width: 10px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   background: #f1f1f1; 
 }
  
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: #888; 
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
@@ -166,8 +163,8 @@ h4 {
   font-size: 16px;
 }
 
-p{
-  font-size: 14px;
+p, li{
+  font-size: 16px;
 }
 
 .form-control:focus, .form-select:focus, .form-check-input:focus {
@@ -182,6 +179,10 @@ p{
 button:focus{
   outline: 0 !important;
   box-shadow: unset !important;
+}
+
+.btn-link {
+  padding: 0;
 }
 
 .clearfix::after {
@@ -417,85 +418,32 @@ button{
   color: var(--secondary-color);
 }
 
-/* modals */
-
-/*******************************
-* MODAL AS LEFT/RIGHT SIDEBAR
-* Add "left" or "right" in modal parent div, after class="modal".
-* Get free snippets on bootpen.com
-*******************************/
-.modal.left .modal-dialog,
-.modal.right .modal-dialog {
-  position: fixed;
-  margin: auto;
-  width: 400px;
-  height: 100%;
-  -webkit-transform: translate3d(0%, 0, 0);
-      -ms-transform: translate3d(0%, 0, 0);
-       -o-transform: translate3d(0%, 0, 0);
-          transform: translate3d(0%, 0, 0);
-}
-
-.modal.left .modal-content,
-.modal.right .modal-content {
-  height: 100%;
-  overflow-y: auto;
-}
-
-.modal.left .modal-body,
-.modal.right .modal-body {
-  padding: 15px 15px 80px;
-}
-
-/*Left*/
-.modal.left.fade .modal-dialog{
-  left: 0px;
-  -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
-     -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
-       -o-transition: opacity 0.3s linear, left 0.3s ease-out;
-          transition: opacity 0.3s linear, left 0.3s ease-out;
-}
-
-.modal.left.fade.in .modal-dialog{
-  left: 0;
-}
-      
-/*Right*/
-.modal.right.fade .modal-dialog {
-  right: 0px;
-  -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
-     -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
-       -o-transition: opacity 0.3s linear, right 0.3s ease-out;
-          transition: opacity 0.3s linear, right 0.3s ease-out;
-}
-
 .modal.right.fade.in .modal-dialog {
   right: 0;
 }
 
-/* ----- MODAL STYLE ----- */
-.modal-content {
-  border-radius: 0;
-  border: none;
+.pac-container.hdpi {
+  z-index: 999;
 }
 
-.modal-title {
-  color: var(--black);
-}
+/* Loader */
 
-.modal-header {
-  border-bottom-color: #EEEEEE;
-  background-color: var(--white);
-  color: var(--white);
-  border-radius: 0;
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-
-.modal-header .btn-close {
-  color: var(--white) !important;
-  font-size: 22px;
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 10px solid #f3f3f3;
+  border-top: 10px solid #383636;
+  border-radius: 50%;
+  animation: spinner 1.5s linear infinite;
 }
-
-/* page loading canvas */
 
 .loading-page {
   width: 100%;
@@ -510,125 +458,4 @@ button{
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
   display: inline-block;
-}
-
-/* table */
-
-.table {
-  border-collapse: separate;
-  border-spacing: 0;
-  background-color: #fff;
-  width: 100%;
-  max-width: 100%;
-  border-top: .2rem solid #d8dbe0;
-  padding: .5rem;
-  border-radius: .3rem;
-}
-
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-  padding: .8rem;
-  line-height: 1.42857143;
-}
-
-table thead th {
-  font-size: 0.9rem;
-  font-family: var(--default-font-semibold);
-  text-align: left;
-  padding-bottom: 5px;
-}
-
-.table>thead>tr>th {
-  border-bottom: .12rem solid #f2f2f2;
-  border-bottom-color: #f2f2f2 !important;
-}
-
-table tbody td {
-  font-size: .9rem;
-}
-
-table tbody tr:focus-within, table tbody tr:hover {
-  background-color: #f5f5f5;
-}
-
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th {
-  border-top: .1rem solid #ebedef;
-}
-
-.table-action-dropdown .dropdown-toggle {
-  background: transparent;
-  color: var(--theme-color);
-  border: none;
-  border-radius: 12px;
-}
-
-.table-action-dropdown .dropdown-toggle:hover, 
-.table-action-dropdown .dropdown-toggle:focus {
-  background: var(--theme-color);
-  color: #fff;
-  border-radius: 12px;
-}
-
-.table-action-dropdown .dropdown-toggle::after {
-  content:none;
-}
-
-.table-action-dropdown .dropdown-item {
-  color: var(--theme-color);
-}
-
-.table-action-dropdown .dropdown-item:hover, 
-.table-action-dropdown .dropdown-item:focus {
-  background: transparent;
-  font-family: var(--default-font-semibold);
-}
-
-.table-bottom-center-pagination {
-  text-align: center !important;
-}
-
-.table-bottom-center-pagination .pagination{
-  display: inline-flex !important;
-}
-
-.table-bottom-center-pagination .pagination .page-link{
-  color: var(--theme-color);
-}
-
-.table-bottom-center-pagination .pagination .page-link:hover,
-.table-bottom-center-pagination .pagination .page-link:focus{
-  color: var(--secondary-color);
-  background: var(--theme-color);
-}
-
-.table-container {
-  margin-top: 10px !important;
-  display: inline-block;
-}
-
-.low-height-btn {
-  line-height: 0.9 !important;
-  display: inline;
-}
-
-.highlighted-text {
-  color: var(--secondary-color) !important;
-}
-
-.text-right {
-  text-align: right !important;
-}
-
-.modal-footer {
-  padding: 0.4rem .75rem !important;
-  border-bottom-right-radius: 0px !important;
-  border-bottom-left-radius: 0px !important;
-  background: var(--light-grey);
-}
-
-.modal.left .modal-body, .modal.right .modal-body {
-  padding: 15px 15px 15px;
-}
-
-.card-footer {
-  padding: 1rem;
 }

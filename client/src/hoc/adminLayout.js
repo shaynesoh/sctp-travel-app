@@ -1,12 +1,11 @@
 import React from "react";
+import Loader from "../components/Loader";
 import Header from './../common/header';
-import { Preloader, Bars } from 'react-preloader-icon';
 
 const adminLayout = (ChildComponent) => {
     class AdminLayout extends React.Component {
         constructor(props){
             super(props);
-    
             this.state = {
                 pageLoaded: false,
                 saveLeadClickEvent: ""
@@ -25,7 +24,7 @@ const adminLayout = (ChildComponent) => {
             if(!this.state.pageLoaded){
                 return <div className="loading-page">
                     <div className="center">
-                        <Preloader use={Bars} size={60} strokeWidth={10} strokeColor="#f7b085" duration={600} />
+                        <Loader />
                     </div>
               </div>
             }

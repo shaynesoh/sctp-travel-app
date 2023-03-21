@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import adminLayout from "../hoc/adminLayout";
 import GoogleMap from '../components/GoogleMap';
 import DailyItinerary from '../components/DailyItinerary';
+import CreateTripModal from '../components/CreateTripModal';
 
 function TripDetails() {
   const { index } = useParams();
@@ -19,6 +20,20 @@ function TripDetails() {
       activities: []
     });
   }
+
+  const [tripList, setTripList] = useState([]);
+
+  useEffect(() => {
+    const storedTripList = JSON.parse(localStorage.getItem('tripList'));
+    if (storedTripList) {
+      setTripList(storedTripList);
+    };
+  }, []);
+
+  const onAddDestination = (dayNumber, destinations) => {
+    console.log(dayNumber, destinations);
+  };
+
 
   return (
     <>
@@ -38,10 +53,11 @@ function TripDetails() {
             <p>{trip.country}</p>
             <p>{trip.startDate} to {trip.endDate}</p>
             <div>
-              {days.map((day, index) => (
-                <DailyItinerary day={day} key={index} />
-              ))}
+            {days.map((day) => (
+              <DailyItinerary day={day} onAddDestination={onAddDestination} />
+            ))}
             </div>
+            {/* <CreateTripModal show={show} handleClose={handleClose} /> */}
           </div>
           <div class="col-sm">
             <GoogleMap />
@@ -53,3 +69,4 @@ function TripDetails() {
 }
 
 export default adminLayout(TripDetails);
+
