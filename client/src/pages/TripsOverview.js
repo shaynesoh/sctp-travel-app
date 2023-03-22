@@ -22,7 +22,7 @@ function TripsOverview() {
       setTripList(trips);
     };
     fetchData();
-  }, []);
+  }, [tripList]);
 
   const deleteTrip = (index) => {
     const newTripList = tripList.filter((trip, i) => i !== index);
@@ -31,6 +31,8 @@ function TripsOverview() {
   }
 
   const handleClose = () => setShow(false);
+
+
   const handleShow = () => setShow(true);
 
   return (
@@ -41,7 +43,7 @@ function TripsOverview() {
         </div>
         <div className="row">
           {tripList.map((trip, index) => (
-              <TripList {...trip} key={index} index={index} setTripList={setTripList} deleteTrip={deleteTrip} />
+            <TripList {...trip} key={index} index={index} setTripList={setTripList} deleteTrip={deleteTrip} />
           ))}
         </div>
         <div className="row mx-auto">
