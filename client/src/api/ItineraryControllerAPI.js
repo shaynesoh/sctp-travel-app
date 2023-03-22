@@ -17,6 +17,10 @@ const itineraryService = {
     const response = await itineraryApi.get(`/itineraries/${itineraryId}/items`, data);
     return response.data;
   },
+  async addItinerary(itinerary) {
+    const response = await itineraryApi.post('/itineraries', itinerary);
+    return response.data;
+  },
   async addItineraryItem(itineraryId, itineraryItem) {
     const response = await itineraryApi.post(`/itineraries/${itineraryId}`, itineraryItem);
     return response.data;
