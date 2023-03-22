@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Autocomplete from "react-google-autocomplete";
 import ReactGoogleAutocomplete from 'react-google-autocomplete';
+import ItineraryService from "../api/ItineraryControllerAPI";
 
 function CreateTripModal({ show, handleClose, setTripList }) {
   const [name, setName] = useState('');
@@ -15,13 +16,25 @@ function CreateTripModal({ show, handleClose, setTripList }) {
       alert('End date cannot be before start date!');
       return;
     }
-    const newTrip = { name, country, startDate, endDate };
-    setTripList(prevTripList => [...prevTripList, newTrip]);
+    const newItinerary = {
+      name: name,
+      user: {"id":1},
+      description: country,
+      startDate: startDate,
+      endDate: endDate
+    };
+
+    console.log(newItinerary);
+
+    ItineraryService.addItinerary(newItinerary)
+      .then(() => {
+        handleClose();
+      })
+      .catch(error => {
+        console.log(error);
+      })
     handleClose();
-    const storedTripList = JSON.parse(localStorage.getItem('tripList')) || [];
-    const updatedTripList = [...storedTripList, newTrip];
-    localStorage.setItem('tripList', JSON.stringify(updatedTripList));
-  };  
+  };
 
   return (
     <>
@@ -50,7 +63,7 @@ function CreateTripModal({ show, handleClose, setTripList }) {
                   inputClassName="form-control"
                 />
               </div> */}
-                <div className="form-floating mb-3">
+              <div className="form-floating mb-3">
                 <input type="text" required className="form-control" placeholder="Destination Country" onChange={(e) => setCountry(e.target.value)} />
                 <label>Destination Country</label>
               </div>
