@@ -3,17 +3,26 @@ import CreateTripModal from "../components/CreateTripModal";
 import TripList from "../components/TripList";
 import adminLayout from "../hoc/adminLayout";
 import Button from "react-bootstrap/esm/Button";
+import ItineraryService from "../api/ItineraryControllerAPI"
 
 function TripsOverview() {
   const [tripList, setTripList] = useState([]);
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const storedTripList = JSON.parse(localStorage.getItem('tripList'));
-    if (storedTripList) {
-      setTripList(storedTripList);
+    const fetchData = async () => {
+      const itineraries = await ItineraryService.getAllItineraries();
+      const trips = itineraries.map((itinerary) => ({
+        name: itinerary.name,
+        country: itinerary.description,
+        startDate: new Date(itinerary.startDate).toLocaleDateString('en-UK', { day: '2-digit', month: 'short' }),
+        endDate: new Date(itinerary.endDate).toLocaleDateString('en-UK', { day: '2-digit', month: 'short' }),
+        index: itinerary.id,
+      }));
+      setTripList(trips);
     };
-  }, []);
+    fetchData();
+  }, [tripList]);
 
   const deleteTrip = (index) => {
     const newTripList = tripList.filter((trip, i) => i !== index);
@@ -22,6 +31,8 @@ function TripsOverview() {
   }
 
   const handleClose = () => setShow(false);
+
+
   const handleShow = () => setShow(true);
 
   return (
@@ -32,7 +43,7 @@ function TripsOverview() {
         </div>
         <div className="row">
           {tripList.map((trip, index) => (
-              <TripList {...trip} key={index} index={index} setTripList={setTripList} deleteTrip={deleteTrip} />
+            <TripList {...trip} key={index} index={index} setTripList={setTripList} deleteTrip={deleteTrip} />
           ))}
         </div>
         <div className="row mx-auto">
