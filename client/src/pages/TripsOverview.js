@@ -25,13 +25,10 @@ function TripsOverview() {
   }, [tripList]);
 
   const deleteTrip = (index) => {
-    const newTripList = tripList.filter((trip, i) => i !== index);
-    setTripList(newTripList);
-    localStorage.setItem('tripList', JSON.stringify(newTripList));
+    ItineraryService.deleteItinerary(index);
   }
 
   const handleClose = () => setShow(false);
-
 
   const handleShow = () => setShow(true);
 
