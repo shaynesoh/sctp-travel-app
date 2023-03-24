@@ -37,7 +37,7 @@ function TripsOverview() {
 
   return (
     <>
-      <div class="container">
+      <div className="container">
         <div className='row text-center p-5'>
           <h1>My Trips</h1>
         </div>
