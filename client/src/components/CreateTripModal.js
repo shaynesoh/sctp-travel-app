@@ -38,7 +38,7 @@ function CreateTripModal({ show, handleClose, setTripList }) {
 
   return (
     <>
-      <div class="row mx-auto">
+      <div className="row mx-auto">
 
         <Modal centered show={show} onHide={handleClose}>
           <Modal.Header closeButton>
