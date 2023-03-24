@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import { Link } from 'react-router-dom';
 
-function TripList({ name, country, startDate, endDate, index, setTripList, deleteTrip }) {
+function TripList({ name, country, budget, startDate, endDate, index, setTripList, deleteTrip }) {
 
   const handleDelete = () => {
     deleteTrip(index);
@@ -13,9 +13,16 @@ function TripList({ name, country, startDate, endDate, index, setTripList, delet
         <div className="col-xl-4 col-sm-6 mb-3">
           <div className="card h-100 shadow-sm bg-white rounded">
             <div className="card-body">
-              <div className="mr-5 mb-3"><h2>{name}</h2></div>
-              <div className="mr-5">{country}</div>
-              <div className="mr-5">{startDate} to {endDate}</div>
+              <h2 className="mb-3">{name}</h2>
+              <div className="d-flex">
+                <div className="col-6">
+                  <div className="mr-5">{country}</div>
+                  <div className="mr-5">{startDate} to {endDate}</div>
+                </div>
+                <div className="col-6">
+                  <div className="mr-5">$ {budget}</div>
+                </div>
+              </div>
             </div>
             <div className="card-footer clearfix small z-1 d-flex align-items-center justify-content-between" href="#">
             <div>
