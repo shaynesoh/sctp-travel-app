@@ -18,12 +18,12 @@ function TripList({ name, country, startDate, endDate, index, setTripList, delet
               <div className="mr-5">{startDate} to {endDate}</div>
             </div>
             <div className="card-footer clearfix small z-1 d-flex align-items-center justify-content-between" href="#">
-            <a href="#">
+            <div>
               <span className="float-left"><Link to={`/trips/${index}`}>View Details</Link> </span>
               <span className="float-right">
                 <i className="fa fa-angle-right"></i>
               </span>
-            </a>
+            </div>
             <Button variant="dark" onClick={handleDelete}>Delete</Button>
             </div>
           </div>
