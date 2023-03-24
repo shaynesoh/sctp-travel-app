@@ -51,10 +51,11 @@ function TripDetails() {
               </div>
             </div>
             <p>{trip.country}</p>
+            <p>{trip.budget}</p>
             <p>{trip.startDate} to {trip.endDate}</p>
             <div>
             {days.map((day) => (
-              <DailyItinerary day={day} onAddDestination={onAddDestination} />
+              <DailyItinerary key={day.dayNumber} day={day} onAddDestination={onAddDestination} />
             ))}
             </div>
             {/* <CreateTripModal show={show} handleClose={handleClose} /> */}
