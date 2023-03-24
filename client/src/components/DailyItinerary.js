@@ -30,10 +30,10 @@ function DailyItinerary({ day, onAddDestination }) {
           <ul>
             {destinations.map((destination, index) => (
               <li key={index}>
-                <div class="d-flex justify-content-between align-items-center">
+                <div className="d-flex justify-content-between align-items-center">
                   {destination}
-                  <button type="button" class="btn btn-link" onClick={() => handleRemoveDestination(index)}>
-                    <span><i class="bi bi-x link-danger"></i></span>
+                  <button type="button" className="btn btn-link" onClick={() => handleRemoveDestination(index)}>
+                    <span><i className="bi bi-x link-danger"></i></span>
                   </button>
                 </div>
               </li>
