@@ -1,67 +1,38 @@
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import { useState } from 'react';
-
-function DailyItinerary({ day, onAddDestination }) {
-  const [destination, setDestination] = useState('');
-  const [destinations, setDestinations] = useState([]);
-
-  const handleAddDestination = (e) => {
-    e.preventDefault();
-    if (destination.trim() !== '') {
-      setDestinations([...destinations, destination]);
-      onAddDestination(day.dayNumber, [...destinations, destination]);
-      setDestination('');
-    }
-  };
-
-  const handleRemoveDestination = (index) => {
-    const updatedDestinations = [...destinations];
-    updatedDestinations.splice(index, 1);
-    setDestinations(updatedDestinations);
-    onAddDestination(day.dayNumber, updatedDestinations);
-  };
-
+import { Card, Button, CardGroup } from "react-bootstrap";
+import { useState } from "react";
+import ItemCard from "./ItemCard";
+function DailyItinerary({
+  dayNumber,
+  name,
+  description,
+  destination,
+  accommodation,
+  transport,
+}) {
+  console.log(destination);
+  let destItem;
+  if (destination != undefined) {
+    destItem = {
+      name: destination?.city + ", " + destination?.country,
+      description: destination?.description,
+      image: destination?.image,
+      price: accommodation?.price + transport?.price,
+    };
+  }
   return (
-    <Card className="mb-3">
-      <Card.Header>Day {day.dayNumber}</Card.Header>
+    <Card className="mb-3 border rounded">
+      <Card.Header>Day {dayNumber}</Card.Header>
       <Card.Body>
-        <Card.Title>
-          <ul>
-            {destinations.map((destination, index) => (
-              <li key={index}>
-                <div className="d-flex justify-content-between align-items-center">
-                  {destination}
-                  <button
-                    type="button"
-                    className="btn btn-link"
-                    onClick={() => handleRemoveDestination(index)}
-                  >
-                    <span>
-                      <i className="bi bi-x link-danger"></i>
-                    </span>
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </Card.Title>
-        <div>
-          <form onSubmit={handleAddDestination}>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Enter a destination"
-              value={destination}
-              onChange={(e) => setDestination(e.target.value)}
-            />
-            <button
-              className="btn btn-primary text-white w-100 mt-3"
-              type="submit"
-            >
-              Add destination +
-            </button>
-          </form>
+        <div className="d-flex" style={{ height: "18rem" }}>
+          <div className="w-50 h-100 ">
+            <ItemCard item={destItem} altText="Add destination" />
+          </div>
+          <div className="w-50">
+            <CardGroup className="h-100">
+              <ItemCard item={accommodation} altText="Add accommodation" />
+              <ItemCard item={transport} altText="Add transport" />
+            </CardGroup>
+          </div>
         </div>
       </Card.Body>
     </Card>
