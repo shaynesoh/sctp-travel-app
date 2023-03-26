@@ -7,6 +7,7 @@ import ItineraryService from "../api/ItineraryControllerAPI";
 function CreateTripModal({ show, handleClose, setTripList }) {
   const [name, setName] = useState('');
   const [country, setCountry] = useState('');
+  const [budget, setBudget] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
@@ -20,6 +21,7 @@ function CreateTripModal({ show, handleClose, setTripList }) {
       name: name,
       user: {"id":1},
       description: country,
+      budget: budget,
       startDate: startDate,
       endDate: endDate
     };
@@ -38,7 +40,7 @@ function CreateTripModal({ show, handleClose, setTripList }) {
 
   return (
     <>
-      <div class="row mx-auto">
+      <div className="row mx-auto">
 
         <Modal centered show={show} onHide={handleClose}>
           <Modal.Header closeButton>
@@ -66,6 +68,10 @@ function CreateTripModal({ show, handleClose, setTripList }) {
               <div className="form-floating mb-3">
                 <input type="text" required className="form-control" placeholder="Destination Country" onChange={(e) => setCountry(e.target.value)} />
                 <label>Destination Country</label>
+              </div>
+              <div className="form-floating mb-3">
+                <input type="number" required className="form-control" placeholder="Total budget" onChange={(e) => setBudget(e.target.value)} />
+                <label>Total budget</label>
               </div>
               <div className="form-floating mb-3">
                 <input type="date" required className="form-control" placeholder="Start date of trip" onChange={(e) => setStartDate(e.target.value)} />

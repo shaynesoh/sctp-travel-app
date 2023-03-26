@@ -37,29 +37,30 @@ function TripDetails() {
 
   return (
     <>
-      <div class="container">
-        <div class="row">
-          <div class="col-sm">
-            <div class="row align-items-center">
-              <div class="col-sm">
-                <h1 class="font-weight-bold">{trip.name}</h1>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm">
+            <div className="row align-items-center">
+              <div className="col-sm">
+                <h1 className="font-weight-bold">{trip.name}</h1>
               </div>
-              <div class="col-sm text-right">
-                <button type="button" class="btn btn-link">
-                  <h1><i class="bi bi-pencil-square"></i></h1>
+              <div className="col-sm text-right">
+                <button type="button" className="btn btn-link">
+                  <h1><i className="bi bi-pencil-square"></i></h1>
                 </button>
               </div>
             </div>
             <p>{trip.country}</p>
+            <p>{trip.budget}</p>
             <p>{trip.startDate} to {trip.endDate}</p>
             <div>
             {days.map((day) => (
-              <DailyItinerary day={day} onAddDestination={onAddDestination} />
+              <DailyItinerary key={day.dayNumber} day={day} onAddDestination={onAddDestination} />
             ))}
             </div>
             {/* <CreateTripModal show={show} handleClose={handleClose} /> */}
           </div>
-          <div class="col-sm">
+          <div className="col-sm">
             <GoogleMap />
           </div>
         </div>

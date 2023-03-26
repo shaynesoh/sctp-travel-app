@@ -14,7 +14,7 @@ function DailyItinerary({ day, onAddDestination }) {
       setDestination('');
     }
   };
-  
+
   const handleRemoveDestination = (index) => {
     const updatedDestinations = [...destinations];
     updatedDestinations.splice(index, 1);
@@ -30,24 +30,39 @@ function DailyItinerary({ day, onAddDestination }) {
           <ul>
             {destinations.map((destination, index) => (
               <li key={index}>
-                <div class="d-flex justify-content-between align-items-center">
+                <div className="d-flex justify-content-between align-items-center">
                   {destination}
-                  <button type="button" class="btn btn-link" onClick={() => handleRemoveDestination(index)}>
-                    <span><i class="bi bi-x link-danger"></i></span>
+                  <button
+                    type="button"
+                    className="btn btn-link"
+                    onClick={() => handleRemoveDestination(index)}
+                  >
+                    <span>
+                      <i className="bi bi-x link-danger"></i>
+                    </span>
                   </button>
                 </div>
               </li>
             ))}
           </ul>
         </Card.Title>
-        <Card.Text>
+        <div>
           <form onSubmit={handleAddDestination}>
-            <input type="text" className="form-control" placeholder="Enter a destination" value={destination} onChange={(e) => setDestination(e.target.value)} />
-            {/* <button className="btn btn-primary text-white w-100 mt-3" type="submit">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Enter a destination"
+              value={destination}
+              onChange={(e) => setDestination(e.target.value)}
+            />
+            <button
+              className="btn btn-primary text-white w-100 mt-3"
+              type="submit"
+            >
               Add destination +
-            </button> */}
+            </button>
           </form>
-        </Card.Text>
+        </div>
       </Card.Body>
     </Card>
   );

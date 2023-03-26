@@ -15,6 +15,7 @@ function TripsOverview() {
       const trips = itineraries.map((itinerary) => ({
         name: itinerary.name,
         country: itinerary.description,
+        budget: itinerary.budget,
         startDate: new Date(itinerary.startDate).toLocaleDateString('en-UK', { day: '2-digit', month: 'short' }),
         endDate: new Date(itinerary.endDate).toLocaleDateString('en-UK', { day: '2-digit', month: 'short' }),
         index: itinerary.id,
@@ -34,7 +35,7 @@ function TripsOverview() {
 
   return (
     <>
-      <div class="container">
+      <div className="container">
         <div className='row text-center p-5'>
           <h1>My Trips</h1>
         </div>
