@@ -13,7 +13,7 @@ function DailyItinerary({
   let destItem;
   if (destination != undefined) {
     destItem = {
-      name: destination?.city + ", " + destination?.country,
+      name: destination?.name,
       description: destination?.description,
       image: destination?.image,
       price: accommodation?.price + transport?.price,
