@@ -13,8 +13,12 @@ const itineraryService = {
     const response = await itineraryApi.get(`/itineraries/users/${userId}`);
     return response.data;
   },
-  async getItineraryItems(itineraryId, data) {
-    const response = await itineraryApi.get(`/itineraries/${itineraryId}/items`, data);
+  async getItinerary(itineraryId) {
+    const response = await itineraryApi.get(`/itineraries/${itineraryId}`);
+    return response.data;
+  },
+  async getItineraryItems(itineraryId) {
+    const response = await itineraryApi.get(`/itineraries/${itineraryId}/items`);
     return response.data;
   },
   async addItinerary(itinerary) {
