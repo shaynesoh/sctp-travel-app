@@ -44,7 +44,7 @@ function TripDetails() {
   for (let i = 1; i <= dayCount; i++) {
     days.push({
       dayNumber: i,
-      itineraryItem: itineraryItemList[i],
+      itineraryItem: itineraryItemList[i - 1],
     });
   }
 
