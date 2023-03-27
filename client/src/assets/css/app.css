@@ -334,7 +334,7 @@ ul ul a {
 
 .form-label {
   font-family: var(--default-font-semibold);
-  color: var(--bs-gray);
+  color: var(--blue-grey);
 }
 
 input::placeholder{
@@ -389,14 +389,14 @@ button{
 }
 
 .btn-default {
-  background-color: var(--secondary-color) !important;
+  background-color: var(--black) !important;
   color: var(--white);
 }
 
 .btn-default:hover,
 .btn-default:active,
 .btn-default:focus {
-  background-color: var(--secondary-color-dark) !important;
+  background-color: var(--black-dark) !important;
   color: var(--white);
 }
 
@@ -407,7 +407,7 @@ button{
 }
 
 .bg-body h6{
-  color: var(--secondary-color);
+  color: var(--black);
 }
 
 .text-default {
@@ -415,7 +415,7 @@ button{
 }
 
 .text-secondary {
-  color: var(--secondary-color);
+  color: var(--black);
 }
 
 .modal.right.fade.in .modal-dialog {
@@ -458,4 +458,8 @@ button{
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
   display: inline-block;
+}
+
+.tripname {
+  color: var(--blue-grey);
 }
