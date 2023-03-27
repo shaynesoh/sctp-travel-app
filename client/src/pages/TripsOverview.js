@@ -46,6 +46,18 @@ function TripsOverview() {
           <h1>My Trips</h1>
         </div>
         <div className="row">
+          {tripList.length == 0 ? (
+          <h3 className="text-center mb-3">You have no trips planned, create one below!</h3>) : (
+            tripList.map((trip, index) => (
+              <TripList
+                {...trip}
+                key={index}
+                index={trip.index}
+                setTripList={setTripList}
+                deleteTrip={deleteTrip}
+              />
+            ))
+          )}
           {tripList.map((trip, index) => (
             <TripList
               {...trip}
