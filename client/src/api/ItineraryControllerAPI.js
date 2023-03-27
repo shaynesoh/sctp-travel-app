@@ -13,8 +13,12 @@ const itineraryService = {
     const response = await itineraryApi.get(`/itineraries/users/${userId}`);
     return response.data;
   },
-  async getItineraryItemsFromItinerary(itineraryId, data) {
-    const response = await itineraryApi.get(`/itineraries/${itineraryId}/items`, data);
+  async getItinerary(itineraryId) {
+    const response = await itineraryApi.get(`/itineraries/${itineraryId}`);
+    return response.data;
+  },
+  async getItineraryItems(itineraryId) {
+    const response = await itineraryApi.get(`/itineraries/${itineraryId}/items`);
     return response.data;
   },
   async addItinerary(itinerary) {
@@ -25,6 +29,15 @@ const itineraryService = {
     const response = await itineraryApi.post(`/itineraries/${itineraryId}`, itineraryItem);
     return response.data;
   },
+  async deleteItineraryItem(itineraryItemId) {
+    const response = await itineraryApi.delete(`/itineraries/items/${itineraryItemId}`);
+    return response.data;
+  },
+  async deleteItinerary(itineraryId) {
+    const response = await itineraryApi.delete(`/itineraries/${itineraryId}`);
+    return response.data;
+  }
+
 
 };
 

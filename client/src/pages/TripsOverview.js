@@ -3,7 +3,7 @@ import CreateTripModal from "../components/CreateTripModal";
 import TripList from "../components/TripList";
 import adminLayout from "../hoc/adminLayout";
 import Button from "react-bootstrap/esm/Button";
-import ItineraryService from "../api/ItineraryControllerAPI"
+import ItineraryService from "../api/ItineraryControllerAPI";
 
 function TripsOverview() {
   const [tripList, setTripList] = useState([]);
@@ -16,8 +16,14 @@ function TripsOverview() {
         name: itinerary.name,
         country: itinerary.description,
         budget: itinerary.budget,
-        startDate: new Date(itinerary.startDate).toLocaleDateString('en-UK', { day: '2-digit', month: 'short' }),
-        endDate: new Date(itinerary.endDate).toLocaleDateString('en-UK', { day: '2-digit', month: 'short' }),
+        startDate: new Date(itinerary.startDate).toLocaleDateString("en-UK", {
+          day: "2-digit",
+          month: "short",
+        }),
+        endDate: new Date(itinerary.endDate).toLocaleDateString("en-UK", {
+          day: "2-digit",
+          month: "short",
+        }),
         index: itinerary.id,
       }));
       setTripList(trips);
@@ -26,33 +32,46 @@ function TripsOverview() {
   }, [tripList]);
 
   const deleteTrip = (index) => {
-    const newTripList = tripList.filter((trip, i) => i !== index);
-    setTripList(newTripList);
-    localStorage.setItem('tripList', JSON.stringify(newTripList));
-  }
+    ItineraryService.deleteItinerary(index);
+  };
 
   const handleClose = () => setShow(false);
-
 
   const handleShow = () => setShow(true);
 
   return (
     <>
       <div className="container">
-        <div className='row text-center p-5'>
+        <div className="row text-center p-5">
           <h1>My Trips</h1>
         </div>
         <div className="row">
           {tripList.map((trip, index) => (
-            <TripList {...trip} key={index} index={index} setTripList={setTripList} deleteTrip={deleteTrip} />
+            <TripList
+              {...trip}
+              key={index}
+              index={trip.index}
+              setTripList={setTripList}
+              deleteTrip={deleteTrip}
+            />
           ))}
         </div>
         <div className="row mx-auto">
-          <Button className="d-flex and justify-content-center text-white" variant="primary" size="lg" onClick={handleShow}>
+          <Button
+            className="d-flex and justify-content-center text-white"
+            variant="primary"
+            size="lg"
+            onClick={handleShow}
+          >
             Create a new trip +
           </Button>
         </div>
-        <CreateTripModal show={show} handleClose={handleClose} handleShow={handleShow} setTripList={setTripList} />
+        <CreateTripModal
+          show={show}
+          handleClose={handleClose}
+          handleShow={handleShow}
+          setTripList={setTripList}
+        />
       </div>
     </>
   );

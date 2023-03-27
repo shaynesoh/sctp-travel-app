@@ -4,7 +4,7 @@ import Autocomplete from "react-google-autocomplete";
 import ReactGoogleAutocomplete from 'react-google-autocomplete';
 import ItineraryService from "../api/ItineraryControllerAPI";
 
-function CreateTripModal({ show, handleClose, setTripList }) {
+function CreateTripModal({ show, handleClose, fetchData }) {
   const [name, setName] = useState('');
   const [country, setCountry] = useState('');
   const [budget, setBudget] = useState('');
@@ -30,6 +30,7 @@ function CreateTripModal({ show, handleClose, setTripList }) {
 
     ItineraryService.addItinerary(newItinerary)
       .then(() => {
+        fetchData();
         handleClose();
       })
       .catch(error => {
