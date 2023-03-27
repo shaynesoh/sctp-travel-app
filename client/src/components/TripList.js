@@ -10,16 +10,16 @@ function TripList({ name, country, budget, startDate, endDate, index, setTripLis
   
   return (
     <>
-        <div className="col-xl-4 col-sm-6 mb-3">
+        <div className="col-lg-6 col-sm-12 mb-3">
           <div className="card h-100 shadow-sm bg-white rounded">
             <div className="card-body">
-              <h2 className="mb-3">{name}</h2>
+              <h2 className="mb-3 tripname">{name}</h2>
               <div className="d-flex">
                 <div className="col-6">
                   <div className="mr-5">{country}</div>
                   <div className="mr-5">{startDate} to {endDate}</div>
                 </div>
-                <div className="col-6">
+                <div className="col-6 text-right">
                   <div className="mr-5">$ {budget}</div>
                 </div>
               </div>
