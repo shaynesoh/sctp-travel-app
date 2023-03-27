@@ -1,6 +1,7 @@
 import { Card, Button, CardGroup } from "react-bootstrap";
 import { useState } from "react";
 import ItemCard from "./ItemCard";
+
 function DailyItinerary({
   dayNumber,
   name,
@@ -38,5 +39,4 @@ function DailyItinerary({
     </Card>
   );
 }
-
 export default DailyItinerary;
