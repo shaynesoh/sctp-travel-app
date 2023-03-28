@@ -2,69 +2,62 @@ import { React, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import { Link } from "react-router-dom";
 import DeleteTripModal from "./DeleteTripModal";
+import { Card } from "react-bootstrap";
+import EditTripModal from "./EditTripModal";
 
-function TripList({
-  name,
-  country,
-  budget,
-  startDate,
-  endDate,
-  index,
-  setTripList,
-  deleteTrip,
-}) {
-  const [confirmationVisible, setConfirmationVisible] = useState(false);
+function TripList({ itinerary, index, handleDelete, handleEdit }) {
+  const { name, country, budget, startDate, endDate, id } = itinerary;
+  const formattedStartDate = new Date(itinerary.startDate).toLocaleDateString(
+    "en-UK",
+    {
+      day: "2-digit",
+      month: "short",
+    }
+  );
 
-  const handleDelete = () => {
-    deleteTrip(index);
-    setConfirmationVisible(false);
-  };
-
-  const showConfirmation = () => setConfirmationVisible(true);
-
-  const hideConfirmation = () => setConfirmationVisible(false);
+  const formattedEndDate = new Date(itinerary.endDate).toLocaleDateString(
+    "en-UK",
+    {
+      day: "2-digit",
+      month: "short",
+    }
+  );
 
   return (
     <>
       <div className="col-xl-4 col-sm-6 mb-3">
-        <div className="card h-100 shadow-sm bg-white rounded">
-          <div className="card-body">
-            <h2 className="mb-3">{name}</h2>
+        <Card className=" h-100 shadow-sm bg-white rounded">
+          <Card.Body>
+            <div className="d-flex justify-content-between">
+              <h2 className="mb-3">{name}</h2>
+              <Button onClick={() => handleEdit(index)}>
+                <i className="bi bi-pencil"></i>
+              </Button>
+            </div>
             <div className="d-flex">
               <div className="col-6">
                 <div className="mr-5">{country}</div>
                 <div className="mr-5">
-                  {startDate} to {endDate}
+                  {formattedStartDate} to {formattedEndDate}
                 </div>
               </div>
               <div className="col-6">
                 <div className="mr-5">$ {budget}</div>
               </div>
             </div>
-          </div>
-          <div
-            className="card-footer clearfix small z-1 d-flex align-items-center justify-content-between"
-            href="#"
-          >
+          </Card.Body>
+          <Card.Footer className=" clearfix small z-1 d-flex align-items-center justify-content-between">
             <div>
-              <span className="float-left">
-                <Link to={`/trips/${index}`}>View Details</Link>{" "}
-              </span>
-              <span className="float-right">
-                <i className="fa fa-angle-right"></i>
-              </span>
+              <Link to={`/trips/${id}`} className="pe-2 pt-3 pb-3">
+                View Details <i className="fa fa-angle-right"></i>
+              </Link>{" "}
             </div>
-            <Button variant="dark" onClick={showConfirmation}>
+            <Button variant="dark" onClick={() => handleDelete(index)}>
               Delete
             </Button>
-          </div>
-        </div>
+          </Card.Footer>
+        </Card>
       </div>
-      <DeleteTripModal
-        show={confirmationVisible}
-        handleClose={hideConfirmation}
-        handleDelete={handleDelete}
-      />
     </>
   );
 }
