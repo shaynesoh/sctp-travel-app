@@ -89,26 +89,21 @@ function TripsOverview() {
         </div>
         <div className="row">
           {tripList.length == 0 ? (
-          <h3 className="text-center mb-3">You have no trips planned, create one below!</h3>) : (
+            <h3 className="text-center mb-3">
+              You have no trips planned, create one below!
+            </h3>
+          ) : (
             tripList.map((trip, index) => (
               <TripList
-                {...trip}
                 key={index}
-                index={trip.index}
-                setTripList={setTripList}
-                deleteTrip={deleteTrip}
+                itinerary={trip}
+                index={index}
+                handleDelete={handleDelete}
+                handleEdit={handleEdit}
               />
             ))
           )}
-          {tripList.map((trip, index) => (
-            <TripList
-              key={index}
-              itinerary={trip}
-              index={index}
-              handleDelete={handleDelete}
-              handleEdit={handleEdit}
-            />
-          ))}
+          {}
         </div>
         <div className="row mx-auto">
           <Button
