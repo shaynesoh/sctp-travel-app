@@ -77,6 +77,7 @@ function TripDetails() {
               {days.map((day) => (
                 <DailyItinerary
                   dayNumber={day?.dayNumber}
+                  key={day?.dayNumber}
                   {...day?.itineraryItem}
                 />
               ))}

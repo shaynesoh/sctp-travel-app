@@ -19,7 +19,7 @@ function ItemCard({ item, altText }) {
           <div className="h-100 container d-flex rounded justify-content-center align-items-center border border-primary">
             <div className="align-items-center text-center ">
               {altText}
-              <h2 class="bi bi-plus-lg"></h2>
+              <h2 className="bi bi-plus-lg"></h2>
             </div>
           </div>
         </a>
@@ -45,9 +45,9 @@ function ItemCard({ item, altText }) {
             </p>
           </Card.ImgOverlay>
           {showButtons && (
-            <div className="position-absolute bottom-0 end-0 m-2">
+            <div className="position-absolute bottom-0 end-0 m-2 d-flex justify-content-end align-items-center w-100">
               <button
-                className="btn  btn-primary me-2 rounded-circle bi bi-pencil-fill"
+                className="btn btn-primary me-2 rounded-circle bi bi-pencil-fill"
                 style={{ height: "3rem", width: "3rem" }}
               />
               <button
