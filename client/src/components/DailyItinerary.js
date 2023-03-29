@@ -3,6 +3,7 @@ import { useState } from "react";
 import ItemCard from "./ItemCard";
 
 function DailyItinerary({
+  id,
   dayNumber,
   name,
   description,
@@ -14,6 +15,7 @@ function DailyItinerary({
   let destItem;
   if (destination != undefined) {
     destItem = {
+      id: destination?.id,
       name: destination?.name,
       description: destination?.description,
       image: destination?.image,
@@ -26,12 +28,12 @@ function DailyItinerary({
       <Card.Body>
         <div className="d-flex" style={{ height: "18rem" }}>
           <div className="w-50 h-100 ">
-            <ItemCard item={destItem} altText="Add destination" />
+            <ItemCard item={destination} altText="Add destination" itemType="destination" itineraryItemId={id}/>
           </div>
           <div className="w-50">
             <CardGroup className="h-100">
-              <ItemCard item={accommodation} altText="Add accommodation" />
-              <ItemCard item={transport} altText="Add transport" />
+              <ItemCard item={accommodation} altText="Add accommodation" itemType="accommodation" itineraryItemId={id}/>
+              <ItemCard item={transport} altText="Add transport" itemType="transport" itineraryItemId={id}/>
             </CardGroup>
           </div>
         </div>
