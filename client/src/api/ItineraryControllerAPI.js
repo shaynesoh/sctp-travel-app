@@ -21,6 +21,10 @@ const itineraryService = {
     const response = await itineraryApi.get(`/itineraries/${itineraryId}/items`);
     return response.data;
   },
+  async getItineraryItem(itineraryId, itineraryItemId) {
+    const response = await itineraryApi.get(`/itineraries/${itineraryId}/items/${itineraryItemId}`);
+    return response.data;
+  },
   async addItinerary(itinerary) {
     const response = await itineraryApi.post('/itineraries', itinerary);
     return response.data;
@@ -29,16 +33,26 @@ const itineraryService = {
     const response = await itineraryApi.post(`/itineraries/${itineraryId}`, itineraryItem);
     return response.data;
   },
+  async deleteItinerary(itineraryId) {
+    const response = await itineraryApi.delete(`/itineraries/${itineraryId}`);
+    return response.data;
+  },
   async deleteItineraryItem(itineraryItemId) {
     const response = await itineraryApi.delete(`/itineraries/items/${itineraryItemId}`);
     return response.data;
   },
-  async deleteItinerary(itineraryId) {
-    const response = await itineraryApi.delete(`/itineraries/${itineraryId}`);
+  async deleteDestinationItem(itineraryItemId) {
+    const response = await itineraryApi.delete(`/itineraries/items/${itineraryItemId}/destination`);
     return response.data;
-  }
-
-
+  },
+  async deleteAccommodationItem(itineraryItemId) {
+    const response = await itineraryApi.delete(`/itineraries/items/${itineraryItemId}/accommodation`);
+    return response.data;
+  },
+  async deleteTransportItem(itineraryItemId) {
+    const response = await itineraryApi.delete(`/itineraries/items/${itineraryItemId}/transport`);
+    return response.data;
+  },
 };
 
 export default itineraryService;
