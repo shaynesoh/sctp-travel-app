@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Autocomplete from "react-google-autocomplete";
 import ReactGoogleAutocomplete from 'react-google-autocomplete';
 import ItineraryService from "../api/ItineraryControllerAPI";
+import Select from "react-select";
 
 function CreateTripModal({ show, handleClose, fetchData }) {
   const [name, setName] = useState('');
@@ -10,6 +11,7 @@ function CreateTripModal({ show, handleClose, fetchData }) {
   const [budget, setBudget] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [countriesList, setCountriesList] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,6 +41,14 @@ function CreateTripModal({ show, handleClose, fetchData }) {
     handleClose();
   };
 
+  useEffect(() => {
+    const fetchCountriesList = async () => {
+      const countriesList = await ItineraryService.getCountries();
+      setCountriesList(countriesList);
+    }
+    fetchCountriesList();
+  }, [])
+
   return (
     <>
       <div className="row mx-auto">
@@ -67,8 +77,14 @@ function CreateTripModal({ show, handleClose, fetchData }) {
                 />
               </div> */}
               <div className="form-floating mb-3">
-                <input type="text" required className="form-control" placeholder="Destination Country" onChange={(e) => setCountry(e.target.value)} />
-                <label>Destination Country</label>
+                <Select
+                  required
+                  className=""
+                  options={countriesList}
+                  placeholder="Destination Country"
+                  noOptionsMessage={() => "No results"}
+                  onChange={(selectedOption) => setCountry(selectedOption.value)}
+                />
               </div>
               <div className="form-floating mb-3">
                 <input type="number" required className="form-control" placeholder="Total budget" onChange={(e) => setBudget(e.target.value)} />
