@@ -36,6 +36,26 @@ const itineraryService = {
   async deleteItinerary(itineraryId) {
     const response = await itineraryApi.delete(`/itineraries/${itineraryId}`);
     return response.data;
+  },
+  async getCountries() {
+    let options = [];
+    let countries = [];
+    try {
+      const response = await itineraryApi.get(`/itineraries/countries`);
+      response.data.map((country) =>
+        countries.push(country.name.common)
+      );
+      countries.sort();
+      countries.map((country) =>
+        options.push({
+          value: country,
+          label: country,
+        })
+      );
+    return options;
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 
 
