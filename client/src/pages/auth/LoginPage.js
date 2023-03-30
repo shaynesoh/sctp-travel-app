@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Button, Alert } from "react-bootstrap";
 import authService from "../../api/AuthAPI";
 import authLayout from "../../hoc/authLayout";
 
 function LoginPage({ setToken }) {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
@@ -18,9 +19,14 @@ function LoginPage({ setToken }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const { username, password } = credentials;
+    if (!username || !password) {
+      setErrorMessage("Please enter username and password");
+      return;
+    }
     try {
-      const { username, password } = credentials;
       // validate username and password here
+
       const token = await authService.authenticateUser(username, password);
       console.log(token);
       if (token) {
@@ -28,15 +34,18 @@ function LoginPage({ setToken }) {
         navigate("/");
       } else {
         console.error("Authentication failed");
+        setErrorMessage("Authentication failed");
       }
     } catch (error) {
       console.error(error);
+      setErrorMessage("Authentication failed");
     }
   };
 
   return (
     <>
       <form className="login-form">
+        {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
         <div className="d-flex align-items-center my-4">
           <h1 className="text-center fw-normal mb-0 me-3">Sign In</h1>
         </div>
