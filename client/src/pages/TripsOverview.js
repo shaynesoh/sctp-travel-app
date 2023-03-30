@@ -3,83 +3,41 @@ import CreateTripModal from "../components/CreateTripModal";
 import TripList from "../components/TripList";
 import adminLayout from "../hoc/adminLayout";
 import Button from "react-bootstrap/esm/Button";
-import DeleteTripModal from "components/DeleteTripModal";
-import EditTripModal from "components/EditTripModal";
 import ItineraryService from "../api/ItineraryControllerAPI";
 
 function TripsOverview() {
   const [tripList, setTripList] = useState([]);
-  const [showCreate, setShowCreate] = useState(false);
-  const [tripToEdit, setTripToEdit] = useState(null);
-  const [tripToDelete, setTripToDelete] = useState(null);
-  const [showEdit, setShowEdit] = useState(false);
-  const [showDelete, setShowDelete] = useState(false);
-
-  const fetchData = async () => {
-    const itineraries = await ItineraryService.getAllItineraries();
-    const trips = itineraries.map((itinerary) => ({
-      name: itinerary.name,
-      country: itinerary.description,
-      budget: itinerary.budget,
-      startDate: itinerary.startDate,
-      endDate: itinerary.endDate,
-      id: itinerary.id,
-    }));
-    setTripList(trips);
-  };
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
+    const fetchData = async () => {
+      const itineraries = await ItineraryService.getAllItineraries();
+      const trips = itineraries.map((itinerary) => ({
+        name: itinerary.name,
+        country: itinerary.description,
+        budget: itinerary.budget,
+        startDate: new Date(itinerary.startDate).toLocaleDateString("en-UK", {
+          day: "2-digit",
+          month: "short",
+        }),
+        endDate: new Date(itinerary.endDate).toLocaleDateString("en-UK", {
+          day: "2-digit",
+          month: "short",
+        }),
+        index: itinerary.id,
+      }));
+      setTripList(trips);
+    };
     fetchData();
-  }, []);
+  }, [tripList]);
 
-  const handleEdit = (index) => {
-    setTripToEdit(tripList[index]);
-    setShowEdit(true);
+  const deleteTrip = (index) => {
+    ItineraryService.deleteItinerary(index);
   };
 
-  const handleDelete = (index) => {
-    setTripToDelete(tripList[index]);
+  const handleClose = () => setShow(false);
 
-    setShowDelete(true);
-  };
-
-  const handleEditClose = (updatedItinerary) => {
-    if (updatedItinerary) {
-      console.log(updatedItinerary);
-      ItineraryService.updateItinerary(updatedItinerary.id, updatedItinerary)
-        .then(() => {
-          fetchData();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-    setShowEdit(false);
-    setTripToEdit(null);
-  };
-
-  const handleDeleteClose = (deleteConfirmed) => {
-    if (deleteConfirmed) {
-      ItineraryService.deleteItinerary(tripToDelete.id)
-        .then(() => {
-          fetchData();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-    setShowDelete(false);
-    setTripToDelete(null);
-  };
-
-  const handleClose = (update) => {
-    if (update) {
-      fetchData();
-    }
-    setShowCreate(false);
-  };
-
-  const handleShow = () => setShowCreate(true);
+  const handleShow = () => setShow(true);
 
   return (
     <>
@@ -89,21 +47,26 @@ function TripsOverview() {
         </div>
         <div className="row">
           {tripList.length == 0 ? (
-            <h3 className="text-center mb-3">
-              You have no trips planned, create one below!
-            </h3>
-          ) : (
+          <h3 className="text-center mb-3">You have no trips planned, create one below!</h3>) : (
             tripList.map((trip, index) => (
               <TripList
+                {...trip}
                 key={index}
-                itinerary={trip}
-                index={index}
-                handleDelete={handleDelete}
-                handleEdit={handleEdit}
+                index={trip.index}
+                setTripList={setTripList}
+                deleteTrip={deleteTrip}
               />
             ))
           )}
-          {}
+          {tripList.map((trip, index) => (
+            <TripList
+              {...trip}
+              key={index}
+              index={trip.index}
+              setTripList={setTripList}
+              deleteTrip={deleteTrip}
+            />
+          ))}
         </div>
         <div className="row mx-auto">
           <Button
@@ -116,24 +79,11 @@ function TripsOverview() {
           </Button>
         </div>
         <CreateTripModal
-          show={showCreate}
+          show={show}
           handleClose={handleClose}
           handleShow={handleShow}
+          setTripList={setTripList}
         />
-        {tripToDelete && (
-          <DeleteTripModal
-            show={showDelete}
-            handleDeleteClose={handleDeleteClose}
-            trip={tripToDelete}
-          />
-        )}
-        {tripToEdit && (
-          <EditTripModal
-            show={showEdit}
-            handleEditClose={handleEditClose}
-            itinerary={tripToEdit}
-          />
-        )}
       </div>
     </>
   );
