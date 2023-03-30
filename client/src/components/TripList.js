@@ -1,9 +1,7 @@
 import { React, useState } from "react";
 import Button from "react-bootstrap/esm/Button";
 import { Link } from "react-router-dom";
-import DeleteTripModal from "./DeleteTripModal";
 import { Card } from "react-bootstrap";
-import EditTripModal from "./EditTripModal";
 
 function TripList({ itinerary, index, handleDelete, handleEdit }) {
   const { name, country, budget, startDate, endDate, id } = itinerary;

@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import adminLayout from "../hoc/adminLayout";
-import GoogleMap from "../components/GoogleMap";
 import DailyItinerary from "../components/DailyItinerary";
-import CreateTripModal from "../components/CreateTripModal";
 import ItineraryService from "../api/ItineraryControllerAPI";
 
 function TripDetails() {
@@ -82,10 +80,6 @@ function TripDetails() {
                 />
               ))}
             </div>
-            {/* <CreateTripModal show={show} handleClose={handleClose} /> */}
-          </div>
-          <div className="col-sm">
-            <GoogleMap />
           </div>
         </div>
       </div>

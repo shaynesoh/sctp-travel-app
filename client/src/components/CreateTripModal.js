@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import Autocomplete from "react-google-autocomplete";
-import ReactGoogleAutocomplete from 'react-google-autocomplete';
 import ItineraryService from "../api/ItineraryControllerAPI";
 import Select from "react-select";
 

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import ItineraryService from "../api/ItineraryControllerAPI";
 
 function EditTripModal({ show, handleEditClose, itinerary }) {
   const [name, setName] = useState(itinerary?.name);
