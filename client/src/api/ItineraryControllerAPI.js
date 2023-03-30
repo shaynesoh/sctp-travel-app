@@ -24,15 +24,19 @@ const itineraryService = {
     return response.data;
   },
   async getItineraryItems(itineraryId) {
-    const response = await itineraryApi.get(`/itineraries/${itineraryId}/items`);
+    const response = await itineraryApi.get(
+      `/itineraries/${itineraryId}/items`
+    );
     return response.data;
   },
-  async getItineraryItem(itineraryId, itineraryItemId) {
-    const response = await itineraryApi.get(`/itineraries/${itineraryId}/items/${itineraryItemId}`);
+  async getItineraryItem(itineraryItemId) {
+    const response = await itineraryApi.get(
+      `/itineraries/items/${itineraryItemId}`
+    );
     return response.data;
   },
   async addItinerary(itinerary) {
-    const response = await itineraryApi.post('/itineraries', itinerary);
+    const response = await itineraryApi.post("/itineraries", itinerary);
     return response.data;
   },
   async addItineraryItem(itineraryId, itineraryItem) {
@@ -61,19 +65,27 @@ const itineraryService = {
     return response.data;
   },
   async deleteItineraryItem(itineraryItemId) {
-    const response = await itineraryApi.delete(`/itineraries/items/${itineraryItemId}`);
+    const response = await itineraryApi.delete(
+      `/itineraries/items/${itineraryItemId}`
+    );
     return response.data;
   },
   async deleteDestinationItem(itineraryItemId) {
-    const response = await itineraryApi.delete(`/itineraries/items/${itineraryItemId}/destination`);
+    const response = await itineraryApi.delete(
+      `/itineraries/items/${itineraryItemId}/destination`
+    );
     return response.data;
   },
   async deleteAccommodationItem(itineraryItemId) {
-    const response = await itineraryApi.delete(`/itineraries/items/${itineraryItemId}/accommodation`);
+    const response = await itineraryApi.delete(
+      `/itineraries/items/${itineraryItemId}/accommodation`
+    );
     return response.data;
   },
   async deleteTransportItem(itineraryItemId) {
-    const response = await itineraryApi.delete(`/itineraries/items/${itineraryItemId}/transport`);
+    const response = await itineraryApi.delete(
+      `/itineraries/items/${itineraryItemId}/transport`
+    );
     return response.data;
   },
   async getCountries() {
@@ -81,9 +93,7 @@ const itineraryService = {
     let countries = [];
     try {
       const response = await itineraryApi.get(`/itineraries/countries`);
-      response.data.map((country) =>
-        countries.push(country.name.common)
-      );
+      response.data.map((country) => countries.push(country.name.common));
       countries.sort();
       countries.map((country) =>
         options.push({
@@ -91,11 +101,22 @@ const itineraryService = {
           label: country,
         })
       );
-    return options;
+      return options;
     } catch (error) {
       console.log(error.message);
     }
-  }
+  },
+  async getAllSubItems(type) {
+    const response = await itineraryApi.get(`/${type}`);
+    return response.data;
+  },
+  async createItineraryItem(itineraryItem) {
+    const response = await itineraryApi.post(
+      `/itineraries/items`,
+      itineraryItem
+    );
+    return response.data;
+  },
 };
 
 export default itineraryService;
