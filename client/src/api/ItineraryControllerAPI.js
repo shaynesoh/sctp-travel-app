@@ -28,14 +28,16 @@ const itineraryService = {
     );
     return response.data;
   },
-  async deleteItinerary(itineraryId) {
-    const response = await itineraryApi.delete(`/itineraries/${itineraryId}`);
-    return response.data;
-  },
   async getItineraryItems(itineraryId) {
     const response = await itineraryApi.get(
       `/itineraries/${itineraryId}/items`
     );
+  async getItineraryItem(itineraryId, itineraryItemId) {
+    const response = await itineraryApi.get(`/itineraries/${itineraryId}/items/${itineraryItemId}`);
+    return response.data;
+  },
+  async addItinerary(itinerary) {
+    const response = await itineraryApi.post('/itineraries', itinerary)
     return response.data;
   },
   async addItineraryItem(itineraryId, itineraryItem) {
@@ -52,10 +54,24 @@ const itineraryService = {
     );
     return response.data;
   },
+  async deleteItinerary(itineraryId) {
+    const response = await itineraryApi.delete(`/itineraries/${itineraryId}`);
+    return response.data;
+  },
   async deleteItineraryItem(itineraryItemId) {
-    const response = await itineraryApi.delete(
-      `/itineraries/items/${itineraryItemId}`
-    );
+    const response = await itineraryApi.delete(`/itineraries/items/${itineraryItemId}`);
+    return response.data;
+  },
+  async deleteDestinationItem(itineraryItemId) {
+    const response = await itineraryApi.delete(`/itineraries/items/${itineraryItemId}/destination`);
+    return response.data;
+  },
+  async deleteAccommodationItem(itineraryItemId) {
+    const response = await itineraryApi.delete(`/itineraries/items/${itineraryItemId}/accommodation`);
+    return response.data;
+  },
+  async deleteTransportItem(itineraryItemId) {
+    const response = await itineraryApi.delete(`/itineraries/items/${itineraryItemId}/transport`);
     return response.data;
   },
   async getCountries() {

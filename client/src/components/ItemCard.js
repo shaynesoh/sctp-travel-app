@@ -1,8 +1,11 @@
 import { Button, Card } from "react-bootstrap";
 import { useState } from "react";
+import itineraryService from "../api/ItineraryControllerAPI";
 
-function ItemCard({ item, altText }) {
+function ItemCard({ item, altText, itemType, itineraryItemId }) {
+
   const [showButtons, setShowButtons] = useState(false);
+  const [type, setType] = useState(itemType);
 
   function handleMouseEnter() {
     setShowButtons(true);
@@ -11,10 +14,37 @@ function ItemCard({ item, altText }) {
   function handleMouseLeave() {
     setShowButtons(false);
   }
+  
+
+  const deleteItineraryItem = async () => {
+    try {
+      switch (itemType) {
+        case "destination":
+          await itineraryService.deleteDestinationItem(itineraryItemId);
+          break;
+        case "accommodation":
+          await itineraryService.deleteAccommodationItem(itineraryItemId);
+          break;
+        case "transport":
+          await itineraryService.deleteTransportItem(itineraryItemId);
+          break;
+        default:
+          break;
+      }
+      setType(undefined);
+      console.log(itineraryItemId);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  function editItineraryItem() {
+    console.log("edit");
+  }
 
   return (
     <Card className="shadow border h-100 m-1">
-      {item === undefined ? (
+      {item == null || typeof item === 'undefined' || typeof type === 'undefined' ? (
         <a href="#" className="h-100">
           <div className="h-100 container d-flex rounded justify-content-center align-items-center border border-primary">
             <div className="align-items-center text-center ">
@@ -46,13 +76,15 @@ function ItemCard({ item, altText }) {
           </Card.ImgOverlay>
           {showButtons && (
             <div className="position-absolute bottom-0 end-0 m-2 d-flex justify-content-end align-items-center w-100">
-              <button
-                className="btn btn-primary me-2 rounded-circle bi bi-pencil-fill"
+              <button 
+                className="btn-primary rounded-circle bi-pencil-fill"
                 style={{ height: "3rem", width: "3rem" }}
+                onClick={editItineraryItem}
               />
-              <button
-                className="btn btn-danger rounded-circle bi bi-trash3-fill"
+              <button 
+                className="btn-danger rounded-circle bi-trash3-fill"
                 style={{ height: "3rem", width: "3rem" }}
+                onClick={() => deleteItineraryItem(type)}
               />
             </div>
           )}
@@ -61,5 +93,6 @@ function ItemCard({ item, altText }) {
     </Card>
   );
 }
+
 
 export default ItemCard;
