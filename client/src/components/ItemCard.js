@@ -2,8 +2,7 @@ import { Card } from "react-bootstrap";
 import { useState } from "react";
 import itineraryService from "../api/ItineraryControllerAPI";
 
-function ItemCard({ item, altText, itemType, itineraryItemId }) {
-
+function ItemCard({ item, altText, itemType, itineraryItemId, handleEdit }) {
   const [showButtons, setShowButtons] = useState(false);
   const [type, setType] = useState(itemType);
 
@@ -14,7 +13,6 @@ function ItemCard({ item, altText, itemType, itineraryItemId }) {
   function handleMouseLeave() {
     setShowButtons(false);
   }
-  
 
   const deleteItineraryItem = async () => {
     try {
@@ -32,27 +30,29 @@ function ItemCard({ item, altText, itemType, itineraryItemId }) {
           break;
       }
       setType(undefined);
-      console.log(itineraryItemId);
     } catch (error) {
       console.log(error);
     }
   };
-  
-  function editItineraryItem() {
-    console.log("edit");
-  }
 
   return (
     <Card className="shadow border h-100 m-1">
-      {item == null || typeof item === 'undefined' || typeof type === 'undefined' ? (
-        <a href="#" className="h-100">
+      {item == null ||
+      typeof item === "undefined" ||
+      typeof type === "undefined" ? (
+        <div
+          className="h-100"
+          onClick={() => {
+            handleEdit(item, itemType);
+          }}
+        >
           <div className="h-100 container d-flex rounded justify-content-center align-items-center border border-primary">
             <div className="align-items-center text-center ">
               {altText}
               <h2 className="bi bi-plus-lg"></h2>
             </div>
           </div>
-        </a>
+        </div>
       ) : (
         <div
           className="w-100 h-100"
@@ -76,12 +76,14 @@ function ItemCard({ item, altText, itemType, itineraryItemId }) {
           </Card.ImgOverlay>
           {showButtons && (
             <div className="position-absolute bottom-0 end-0 m-2 d-flex justify-content-end align-items-center w-100">
-              <button 
+              <button
                 className="btn-primary rounded-circle bi-pencil-fill"
                 style={{ height: "3rem", width: "3rem" }}
-                onClick={editItineraryItem}
+                onClick={() => {
+                  handleEdit(item, itemType);
+                }}
               />
-              <button 
+              <button
                 className="btn-danger rounded-circle bi-trash3-fill"
                 style={{ height: "3rem", width: "3rem" }}
                 onClick={() => deleteItineraryItem(type)}
@@ -93,6 +95,5 @@ function ItemCard({ item, altText, itemType, itineraryItemId }) {
     </Card>
   );
 }
-
 
 export default ItemCard;

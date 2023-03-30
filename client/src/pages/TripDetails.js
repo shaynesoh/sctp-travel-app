@@ -10,20 +10,24 @@ function TripDetails() {
   const [itinerary, setItinerary] = useState({});
 
   const onAddDestination = (dayNumber, destinations) => {};
+  const fetchData = async () => {
+    const destinations = await ItineraryService.getItineraryItems(index);
+    const itinerary = await ItineraryService.getItinerary(index);
+    setItinerary(itinerary);
+    setDestinationList(destinations);
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const destinations = await ItineraryService.getItineraryItems(index);
-      const itinerary = await ItineraryService.getItinerary(index);
-      setItinerary(itinerary);
-      setDestinationList(destinations);
-    };
     fetchData();
   }, [index]);
 
   const handleClick = async () => {
     const destinations = await ItineraryService.getItineraryItems(index);
   };
+
+  const handleDelete = async (id) => {};
+
+  const handleEdit = async (id) => {};
 
   const days = [];
   const start = new Date(itinerary.startDate);
@@ -77,6 +81,8 @@ function TripDetails() {
                   dayNumber={day?.dayNumber}
                   key={day?.dayNumber}
                   {...day?.itineraryItem}
+                  fetchData={fetchData}
+                  itineraryId={index}
                 />
               ))}
             </div>
