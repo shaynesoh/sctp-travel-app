@@ -21,23 +21,17 @@ function App() {
     localStorage.getItem("token") ? localStorage.getItem("token") : null
     );
 
-
-
   const saveToken = (token) => {
     localStorage.setItem("token", token);
     setToken(token);
   };
 
-
-
   function RequireAuth({ children }) {
-
     console.log(token);
     if (!token) {
       console.log("huh");
       return <Navigate to="/login" />;
     }
-
     return children;
   }
 
