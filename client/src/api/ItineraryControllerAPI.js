@@ -1,12 +1,16 @@
-import axios from 'axios';
+import axios from "axios";
 
 const itineraryApi = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: "http://localhost:8080",
 });
 
 const itineraryService = {
   async getAllItineraries() {
-    const response = await itineraryApi.get('/itineraries');
+    const response = await itineraryApi.get("/itineraries");
+    return response.data;
+  },
+  async addItinerary(itinerary) {
+    const response = await itineraryApi.post("/itineraries", itinerary);
     return response.data;
   },
   async getUserItinerary(userId) {
@@ -17,20 +21,37 @@ const itineraryService = {
     const response = await itineraryApi.get(`/itineraries/${itineraryId}`);
     return response.data;
   },
-  async getItineraryItems(itineraryId) {
-    const response = await itineraryApi.get(`/itineraries/${itineraryId}/items`);
+  async updateItinerary(itineraryId, itinerary) {
+    const response = await itineraryApi.put(
+      `/itineraries/${itineraryId}`,
+      itinerary
+    );
     return response.data;
   },
+  async getItineraryItems(itineraryId) {
+    const response = await itineraryApi.get(
+      `/itineraries/${itineraryId}/items`
+    );
   async getItineraryItem(itineraryId, itineraryItemId) {
     const response = await itineraryApi.get(`/itineraries/${itineraryId}/items/${itineraryItemId}`);
     return response.data;
   },
   async addItinerary(itinerary) {
-    const response = await itineraryApi.post('/itineraries', itinerary);
+    const response = await itineraryApi.post('/itineraries', itinerary)
     return response.data;
   },
   async addItineraryItem(itineraryId, itineraryItem) {
-    const response = await itineraryApi.post(`/itineraries/${itineraryId}`, itineraryItem);
+    const response = await itineraryApi.post(
+      `/itineraries/${itineraryId}`,
+      itineraryItem
+    );
+    return response.data;
+  },
+  async updateItineraryItem(itineraryItemId, itineraryItem) {
+    const response = await itineraryApi.put(
+      `/itineraries/items/${itineraryItemId}`,
+      itineraryItem
+    );
     return response.data;
   },
   async deleteItinerary(itineraryId) {
