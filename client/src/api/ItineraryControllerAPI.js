@@ -44,7 +44,7 @@ const itineraryService = {
   },
   async updateItinerary(itineraryId, itinerary) {
     const response = await itineraryApi.put(
-      `/itineraries/${itineraryId}`,
+      `/itineraries/items/${itineraryId}`,
       itinerary
     );
     return response.data;
@@ -97,7 +97,7 @@ const itineraryService = {
     }
   },
   async getAllDestinations() {
-    const response = await itineraryApi.get("/itineraries/destinations");
+    const response = await itineraryApi.get("/destination");
     let destinationList = [];
     response.data.map((destination) =>
       destinationList.push({
@@ -108,7 +108,7 @@ const itineraryService = {
     return destinationList;
   },
   async getAllAccommodations() {
-    const response = await itineraryApi.get("/itineraries/accommodations");
+    const response = await itineraryApi.get("/accommodation");
     let accommodationList = [];
     response.data.map((accommodation) =>
       accommodationList.push({
@@ -119,7 +119,7 @@ const itineraryService = {
     return accommodationList;
   },
   async getAllTransports() {
-    const response = await itineraryApi.get("/itineraries/transports");
+    const response = await itineraryApi.get("/transport");
     let transportList = [];
     response.data.map((transport) =>
       transportList.push({
