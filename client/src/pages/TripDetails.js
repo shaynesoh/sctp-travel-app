@@ -11,15 +11,29 @@ function TripDetails() {
 
   const onAddDestination = (dayNumber, destinations) => {};
 
+  const [destinationOptions, setDestinationOptions] = useState([]);
+  const [accommodationOptions, setAccommodationOptions] = useState([]);
+  const [transportOptions, setTransportOptions] = useState([]);
+
+  const fetchData = async () => {
+    const destinations = await ItineraryService.getItineraryItems(index);
+    const itinerary = await ItineraryService.getItinerary(index);
+    setItinerary(itinerary);
+    setDestinationList(destinations);
+
+    const destinationOptions = await ItineraryService.getAllDestinations();
+    setDestinationOptions(destinationOptions);
+
+    const accommodationOptions = await ItineraryService.getAllAccommodations();
+    setAccommodationOptions(accommodationOptions);
+
+    const transportOptions = await ItineraryService.getAllTransports();
+    setTransportOptions(transportOptions);
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const destinations = await ItineraryService.getItineraryItems(index);
-      const itinerary = await ItineraryService.getItinerary(index);
-      setItinerary(itinerary);
-      setDestinationList(destinations);
-    };
     fetchData();
-  }, [index]);
+  }, [index])
 
   const handleClick = async () => {
     const destinations = await ItineraryService.getItineraryItems(index);
@@ -39,10 +53,17 @@ function TripDetails() {
   });
   const dayCount = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
 
+  function addDays(date, days) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+  }
+
   for (let i = 1; i <= dayCount; i++) {
     days.push({
       dayNumber: i,
       itineraryItem: itineraryItemList[i - 1],
+      date: addDays(start, i - 1),
     });
   }
 
@@ -67,7 +88,7 @@ function TripDetails() {
                 </button>
               </div>
             </div>
-            <p>{itinerary.country}</p>
+            <p>{itinerary.description}</p>
             <p>
               {formattedStartDate} to {formattedEndDate}
             </p>
@@ -77,6 +98,12 @@ function TripDetails() {
                   dayNumber={day?.dayNumber}
                   key={day?.dayNumber}
                   {...day?.itineraryItem}
+                  date={day?.date}
+                  itineraryId={index}
+                  fetchData={fetchData}
+                  destinationOptions={destinationOptions}
+                  accommodationOptions={accommodationOptions}
+                  transportOptions={transportOptions}
                 />
               ))}
             </div>

@@ -1,8 +1,9 @@
 import { Card } from "react-bootstrap";
 import { useState } from "react";
 import itineraryService from "../api/ItineraryControllerAPI";
+import Button from "react-bootstrap/esm/Button";
 
-function ItemCard({ item, altText, itemType, itineraryItemId }) {
+function ItemCard({ item, altText, itemType, itineraryItemId, handleAdd, handleEdit }) {
 
   const [showButtons, setShowButtons] = useState(false);
   const [type, setType] = useState(itemType);
@@ -38,21 +39,27 @@ function ItemCard({ item, altText, itemType, itineraryItemId }) {
     }
   };
   
-  function editItineraryItem() {
-    console.log("edit");
-  }
+  // function editItineraryItem() {
+  //   console.log("edit");
+  // }
 
   return (
     <Card className="shadow border h-100 m-1">
       {item == null || typeof item === 'undefined' || typeof type === 'undefined' ? (
-        <a href="#" className="h-100">
-          <div className="h-100 container d-flex rounded justify-content-center align-items-center border border-primary">
-            <div className="align-items-center text-center ">
-              {altText}
-              <h2 className="bi bi-plus-lg"></h2>
-            </div>
+        <div className="h-100 container d-flex rounded justify-content-center align-items-center border border-primary">
+          <div className="align-items-center text-center ">
+            {altText}
+            <p></p>
+            <Button 
+              onClick={() => {
+                handleAdd();
+                setType("");
+              }}
+            >
+              <i className="bi bi-plus-lg"></i>
+            </Button>
           </div>
-        </a>
+        </div>
       ) : (
         <div
           className="w-100 h-100"
@@ -79,7 +86,10 @@ function ItemCard({ item, altText, itemType, itineraryItemId }) {
               <button 
                 className="btn-primary rounded-circle bi-pencil-fill"
                 style={{ height: "3rem", width: "3rem" }}
-                onClick={editItineraryItem}
+                onClick={() => {
+                  handleEdit(item, itemType);
+                  setType("");
+                }}
               />
               <button 
                 className="btn-danger rounded-circle bi-trash3-fill"
