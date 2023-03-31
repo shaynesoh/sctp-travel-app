@@ -3,7 +3,7 @@ import { useState } from "react";
 import itineraryService from "../api/ItineraryControllerAPI";
 import Button from "react-bootstrap/esm/Button";
 
-function ItemCard({ item, altText, itemType, itineraryItemId, handleAdd }) {
+function ItemCard({ item, altText, itemType, itineraryItemId, handleAdd, handleEdit }) {
 
   const [showButtons, setShowButtons] = useState(false);
   const [type, setType] = useState(itemType);
@@ -39,9 +39,9 @@ function ItemCard({ item, altText, itemType, itineraryItemId, handleAdd }) {
     }
   };
   
-  function editItineraryItem() {
-    console.log("edit");
-  }
+  // function editItineraryItem() {
+  //   console.log("edit");
+  // }
 
   return (
     <Card className="shadow border h-100 m-1">
@@ -86,7 +86,10 @@ function ItemCard({ item, altText, itemType, itineraryItemId, handleAdd }) {
               <button 
                 className="btn-primary rounded-circle bi-pencil-fill"
                 style={{ height: "3rem", width: "3rem" }}
-                onClick={editItineraryItem}
+                onClick={() => {
+                  handleEdit(item, itemType);
+                  setType("");
+                }}
               />
               <button 
                 className="btn-danger rounded-circle bi-trash3-fill"
